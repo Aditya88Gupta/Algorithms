@@ -1,4 +1,3 @@
-# This Program assumes that the integers to be multiplied have same number of digits
 
 import sys,math
 sys.setrecursionlimit(10**7) # max depth of recursion
