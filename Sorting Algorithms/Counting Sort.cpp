@@ -1,3 +1,5 @@
+/* This Alogrithm is useful for sorting small integers with a known upper bound*/
+
 #include <iostream>
 #include <string> 
 #include <vector>
@@ -39,7 +41,7 @@ void CountingSort(vector<int> Input,int limit){
     }
     int res[Input.size()+1] = {0};
     for(vector<int>::iterator item=Input.begin();item!=Input.end();item++){
-        res[Pos[*item]] = *item;
+        res[Pos[*item]] = *item;        // Copying elements form input to it's right position in the result 
         Pos[*item]+=1;
     }
     for(int i=1;i<Input.size()+1;i++){
