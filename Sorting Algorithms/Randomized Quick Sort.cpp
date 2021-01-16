@@ -1,3 +1,4 @@
+// Randomized Quick Sort is not adequate for sorting input with very few unique values
 
 #include <iostream>
 #include <string> 
@@ -26,9 +27,12 @@ vector<int> split(string str){
     return input;
 }
 
+
+// start-j contains all elements <= pivot
+// j-end contains all elements > pivot
 int Partition(vector<int> &Input,int start,int end){
 
-    int j= start;
+    int j= start;  
     int pivot = Input[start];
     for (int i = start+1;i<=end;i++){
         if (pivot>= Input[i]){
@@ -47,11 +51,12 @@ int Partition(vector<int> &Input,int start,int end){
 void QuickSort(vector<int> &Input,int start,int end){
         
     while (start<end){
-        int pivot = rand()%(end-start)+start;
+        int pivot = rand()%(end-start)+start;  // Randomly selecting pivot 
         int temp = Input[start];
         Input[start] = Input[pivot];
         Input[pivot] = temp;
         int m = Partition(Input, start, end);
+        // Eliminating tail recursion to minimize recursion depth and memory usage to logarithmic
         if ((m-start)<(end-m)){
             QuickSort(Input,start,m-1);
             start = m+1;
