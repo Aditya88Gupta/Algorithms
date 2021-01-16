@@ -1,3 +1,4 @@
+// 3-Way partitioning, handles the cases where input has few unique values  
 
 #include <iostream>
 #include <string> 
@@ -26,6 +27,9 @@ vector<int> split(string str){
     return input;
 }
 
+// start-p contains all elements < pivot
+// p+1-j-1 contains all repetition of pivot
+// j-end contains all elements > pivot
 void Partition(vector<int> &Input,int start,int end,int* m1,int* m2){
 
     int j= start;
