@@ -27,9 +27,9 @@ vector<int> split(string str){
     return input;
 }
 
-// start-p contains all elements < pivot
-// p+1-j-1 contains all repetition of pivot
-// j-end contains all elements > pivot
+// start-p-1 contains all elements < pivot
+// p-j contains all repetition of pivot
+// j+1-end contains all elements > pivot
 void Partition(vector<int> &Input,int start,int end,int* m1,int* m2){
 
     int j= start;
