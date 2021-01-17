@@ -1,3 +1,5 @@
+/*We need to divide children into the minimum possible number of groups such that the age of any two children in any group differs by at most one year.*/
+
 #include <iostream>
 #include <string> 
 #include <vector>
