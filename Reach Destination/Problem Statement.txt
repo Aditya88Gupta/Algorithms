@@ -1,0 +1,42 @@
+
+Destination
+
+Few students want to play a game in their free period.  So, they decide to play a game of co-ordinates.
+
+The rules of game are as follows:
+
+a) Initially, everyone will start from X-axis at point 0.
+b) One can move from its current position x (x can be negative) to x+k or x-1. Here, k is the step number which starts from k=1,2,3…..n.
+
+Determine minimum number of steps for reaching position y.
+
+Input:
+The first line contains a single integer t  (1≤t≤10000) — the number of test cases.
+In every test case, the first and only line contains the integer - destination point.
+
+Output:
+Print the minimum number of steps for reaching destination point.
+
+Sample Input:
+5
+1
+2
+3
+4
+5
+Sample Output:
+1
+3
+2
+3
+4
+
+Note
+In the first test case destination=1
+So, only one move require: the 1-st move from 0 to 0+1=1
+
+In the second test case x=2
+You need at least three moves:
+the 1-st move from 0 to 0+1=1
+the 2-nd move from 1 to 1+2=3
+the 3-rd move from 3 to 3−1=2
