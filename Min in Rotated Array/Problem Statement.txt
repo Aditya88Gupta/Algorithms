@@ -1,0 +1,19 @@
+
+
+
+Given a sorted and rotated array arr[] of size n where elements are sorted and rotated circularly. 
+Write a program to find the minimum element in the array. 
+Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand. 
+(i.e., [0,1,2,4,5,6,7] might become [4,5,6,7,0,1,2]). Find the minimum element. 
+You may assume no duplicate exists in the array. 
+To understand the problem, let’s understand what is a sorted array, and then what is sorted rotated array? 
+An array is called sorted where for all i and j such that i < j, A[i] <= A[j]. 
+A rotation happens when the last element of an array is pushed at the start and all elements of array move right by one position. 
+This is called as rotation by 1. If the new last element is also pushed to start again, all elements are moved to the right, 
+it’s a rotation by 2, and so on. 
+
+Problem Note 
+
+• Suppose the elements in the array arr[] are [1, 2, 3, 4, 5, 6, 7], then rotating by four times array becomes [4, 5, 6, 7, 1, 2, 3].
+
+• You won’t be provided with the number of times array is rotated. 
