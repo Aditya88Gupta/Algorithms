@@ -1,0 +1,26 @@
+Mr. Jon Snow is a Math’s school teacher in Riverun city. One day his grandson wants a  puzzle from him. 
+Jon also wants to increase the reasoning level of the child. So, he said to his grandson 
+"come up with some series of numbers that must contain x  unique numbers (Integers) (xi > 0)". 
+In that series, there must be two number p and q such that p < q. The numbers p, q are known to the problem solver. 
+The series of numbers when sorted (element1, element2,……… elementn), the difference between adjacent elements is same i.e., 
+element2 - element1 = element3 - element2,  and so on.
+
+Among all possible such series, find the series which minimize max(element1, element2,……elementn).
+
+Input:
+
+The first three lines of the test case contains three integers, n where 1 < n < 50 (number of elements in the array), p, and q (the two given series elements)where 1 <= p < q <= 1000.
+Basically, the input contains number of elements in the series n and two element of the arrays p,q.
+
+Output
+Print the series.
+
+Sample Input
+
+5
+10
+12
+
+Sample Output
+
+4 6 8 10 12
