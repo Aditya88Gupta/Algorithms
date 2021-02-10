@@ -35,6 +35,7 @@ void printMat(int m, int n, vector<vector<int> > Matrix){
 }
 
 vector<vector<int> > Extract(int size,int x,int y,int m, int n,vector<vector<int> > A){
+    // Function used for extracting sub-matrices from the main matrix
     vector<vector<int> > Matrix(size,vector<int>());
     int tmp=0;
     for(int i=x;i<m;i++){
@@ -46,7 +47,7 @@ vector<vector<int> > Extract(int size,int x,int y,int m, int n,vector<vector<int
     return Matrix;
 }
 
-int Wrapper_1(int m){
+int Wrapper(int m){                    // To ensure rows & columns are power of 2
     if(ceil(log2(m)) != floor(log2(m)))
         return (int)pow(2,ceil(log2(m)));
     return m;
@@ -69,7 +70,7 @@ void Add(vector<vector<int> > &Res,vector<vector<int> > A,vector<vector<int> > B
 
 vector<vector<int> > MatMul(vector<vector<int> > A,vector<vector<int> > B,int Am,int An,int Bm,int Bn){
     
-    if ((Am<=2 && An<=2) && (Bm<=2 && Bn<=2)){
+    if ((Am<=2 && An<=2) && (Bm<=2 && Bn<=2)){      // Base Case will only work if we are working with square matrices
         vector<vector<int> > Temp(Am, vector<int>());
         Temp[0].push_back(A[0][0]*B[0][0]+A[0][1]*B[1][0]);
         Temp[0].push_back(A[0][0]*B[0][1]+A[0][1]*B[1][1]);
@@ -133,11 +134,21 @@ vector<vector<int> > MatMul(vector<vector<int> > A,vector<vector<int> > B,int Am
 int main(){
     int m1,n1,m2,n2;
     cin>>m1>>n1>>m2>>n2;
-    int Copy_m1,Copy_m2,Copy_n1,Copy_n2;
-    Copy_m1 = Wrapper_1(m1);
-    Copy_n1 = Wrapper_1(n1);
-    Copy_m2 = Wrapper_1(m2);
-    Copy_n2 = Wrapper_1(n2);
+    int Copy_m1,Copy_m2,Copy_n1,Copy_n2;   // used for padding zeros 
+    if (m1>m2){
+        Copy_m1 = Wrapper(m1);
+        Copy_m2 = Wrapper(m1);
+    }else{
+        Copy_m1 = Wrapper(m2);
+        Copy_m2 = Wrapper(m2);
+    }
+    if (n1>n2){
+        Copy_n1 = Wrapper(n1);
+        Copy_n2 = Wrapper(n1);
+    }else{
+        Copy_n1 = Wrapper(n2);
+        Copy_n2 = Wrapper(n2);
+    }
     vector<vector<int> > Mat_1(Copy_m1, vector<int>());
     TakeInput(Copy_m1, Copy_n1, m1, n1, Mat_1);
     vector<vector<int> > Mat_2(Copy_m2, vector<int>());
