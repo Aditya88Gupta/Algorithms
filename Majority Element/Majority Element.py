@@ -1,3 +1,5 @@
+# Moore’s Voting Method 
+
 
 def majority_element_naive(elements):
     assert len(elements) <= 10 ** 5
