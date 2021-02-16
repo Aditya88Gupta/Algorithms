@@ -1,43 +1,50 @@
 from collections import namedtuple
 from math import sqrt
+from itertools import combinations
 
 
 Point = namedtuple('Point', 'x y')
 
 def Dist(first_point, second_point):
     return (first_point.x - second_point.x) ** 2 + (first_point.y - second_point.y) ** 2
-    
-def ClosestSplitPair(Px,Py,delta):
-    Min = float('inf')
+
+
+def minimum_distance_squared_naive(points):
+    min_distance_squared = float("inf")
+
+    for p, q in combinations(points, 2):
+        min_distance_squared = min(min_distance_squared,
+                                   Dist(p, q))
+
+    return min_distance_squared
+
+
+def ClosestSplitPair(Px,delta):
+    Min = delta
     n = len(Px)
     mid = Px[n//2].x
     tmp=[]
-    for x,y in Py:
-        if x in (mid-delta,mid+delta):
-            tmp.append((x,y))
-    for i in range(len(tmp)-1):
-        for j in range(i+1,min(7,len(tmp)-i)):
-            dist = Dist(tmp[i],tmp[j])
-            if dist<Min:
-                Min = dist
-    
+    for p in Px:
+        if mid-delta<p.x and p.x<mid+delta:
+            tmp.append(p)
+    tmp.sort(key = lambda P:P.y)  
+    if len(tmp)<8:
+        return minimum_distance_squared_naive(tmp)    
+    for i in range(len(tmp)-7):
+        dist = minimum_distance_squared_naive(tmp[i:i+7])
+        if dist<Min:
+            Min = dist 
+
     return Min
 
 
-def ClosestPair(Sx,Sy):
+def ClosestPair(Sx):
     n = len(Sx)
-    if n<=4:
-        Min = float('inf')
-        for i in range(n-1):
-            for j in range(i+1,n):
-                dist = Dist(Sx[i],Sx[j])
-                if dist<Min:
-                    Min = dist
-                    #print(Min,Sx[i],Sx[j])
-        return Min            
-    Left_Min = ClosestPair(Sx[:(n//2)],Sy)
-    Right_Min = ClosestPair(Sx[(n//2)+1:],Sy)
-    Split_Min = ClosestSplitPair(Sx,Sy,min(Left_Min,Right_Min))
+    if n<4:
+        return minimum_distance_squared_naive(Sx)          
+    Left_Min = ClosestPair(Sx[:(n//2)])
+    Right_Min = ClosestPair(Sx[(n//2):])
+    Split_Min = ClosestSplitPair(Sx,min(Left_Min,Right_Min))
     return min(Left_Min,Right_Min,Split_Min)
     
 if __name__ == '__main__':
@@ -50,6 +57,6 @@ if __name__ == '__main__':
     Sx = input_points.copy()   
     Sy = input_points.copy()
     Sx.sort(key = lambda P:P.x)
-    Sy.sort(key = lambda P:P.y)
-    print("{0:.9f}".format(sqrt(ClosestPair(Sx,Sy))))
+    #Sy.sort(key = lambda P:P.y)
+    print("{0:.9f}".format(sqrt(ClosestPair(Sx))))
    
