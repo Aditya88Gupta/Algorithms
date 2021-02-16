@@ -1,31 +1,55 @@
-def Dist(x1,y1,x2,y2):
-    return (abs(x1-x2)+abs(y1-y2))
+from collections import namedtuple
+from math import sqrt
+
+
+Point = namedtuple('Point', 'x y')
+
+def Dist(first_point, second_point):
+    return (first_point.x - second_point.x) ** 2 + (first_point.y - second_point.y) ** 2
     
-def ClosestPair(Sx):
+def ClosestSplitPair(Px,Py,delta):
+    Min = float('inf')
+    n = len(Px)
+    mid = Px[n//2].x
+    tmp=[]
+    for x,y in Py:
+        if x in (mid-delta,mid+delta):
+            tmp.append((x,y))
+    for i in range(len(tmp)-1):
+        for j in range(i+1,min(7,len(tmp)-i)):
+            dist = Dist(tmp[i],tmp[j])
+            if dist<Min:
+                Min = dist
+    
+    return Min
+
+
+def ClosestPair(Sx,Sy):
     n = len(Sx)
     if n<=4:
         Min = float('inf')
         for i in range(n-1):
             for j in range(i+1,n):
-                dist = Dist(Sx[i][0],Sx[i][1],Sx[j][0],Sx[j][1])
+                dist = Dist(Sx[i],Sx[j])
                 if dist<Min:
                     Min = dist
                     #print(Min,Sx[i],Sx[j])
         return Min            
-    Left_Min = ClosestPair(Sx[:(n//2)])
-    Right_Min = ClosestPair(Sx[(n//2)+1:])
-    return min(Left_Min,Right_Min)
+    Left_Min = ClosestPair(Sx[:(n//2)],Sy)
+    Right_Min = ClosestPair(Sx[(n//2)+1:],Sy)
+    Split_Min = ClosestSplitPair(Sx,Sy,min(Left_Min,Right_Min))
+    return min(Left_Min,Right_Min,Split_Min)
     
-num = int(input())
-Points = list(map(int,input().split()))
-Px = [Points[x] for x in range(0,len(Points),2)]
-Py = [Points[y] for y in range(1,len(Points),2)]
-Sx,Sy=([],[])
-for index,x in enumerate(Px):
-    Sx.append((x,Py[index]))
-    Sy.append((x,Py[index]))
-Sx.sort(key=lambda x:x[0])
-Sy.sort(key=lambda x:x[1])
-#print(Sx)
-#print(Sy)
-print("The smallest distance is",ClosestPair(Sx))
+if __name__ == '__main__':
+    input_n = int(input())
+    input_points = []
+    for _ in range(input_n):
+        x, y = map(int, input().split())
+        input_point = Point(x, y)
+        input_points.append(input_point)    
+    Sx = input_points.copy()   
+    Sy = input_points.copy()
+    Sx.sort(key = lambda P:P.x)
+    Sy.sort(key = lambda P:P.y)
+    print("{0:.9f}".format(sqrt(ClosestPair(Sx,Sy))))
+   
